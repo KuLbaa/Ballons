@@ -1,0 +1,356 @@
+package ProjektGUI2;
+
+import javax.swing.*;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.*;
+import javax.swing.border.LineBorder;
+
+
+
+public class Calculator implements ActionListener {
+	
+	JFrame frame;
+	JTextField textfield;
+	JLabel CalculatorText, Function_chart;
+	JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bdiv, bmul, bsub, badd, bdec, beq, bmin, bclr, bper;
+	
+	double n1=0, n2=0, result=0; 
+	int resultNonDecimal;
+	int operator;
+	int minplus = 0;
+	double number;
+	boolean isDouble;
+	
+	int x,y;
+	int ax, by;
+	
+
+	
+		
+	
+	public Calculator() {
+		frame = new JFrame("Calculator & Function chart");
+		
+		textfield = new JTextField();
+		CalculatorText = new JLabel("CALCULATOR", JLabel.CENTER);
+		Function_chart = new JLabel("GRAPH OF A FUNCTION", JLabel.CENTER);
+		Font font = new Font("SanSerif", Font.BOLD, 20);
+		textfield.setFont(font);
+		textfield.setHorizontalAlignment(JTextField.RIGHT);
+		textfield.setBackground(Color.darkGray);
+		textfield.setForeground(Color.white);
+		textfield.setBorder(new LineBorder(Color.DARK_GRAY));
+		
+		CalculatorText.setBounds(30, 20, 296, 40);
+		CalculatorText.setForeground(Color.orange);
+		CalculatorText.setFont(font);
+		
+		Function_chart.setBounds(490, 20, 450, 40);
+		Function_chart.setForeground(Color.red);
+		Function_chart.setFont(font);
+		
+
+		b0=new JButton("0");
+		b0.setBackground(Color.gray);
+		b0.setForeground(Color.white);
+		b0.setBorder(new LineBorder(Color.gray));
+		
+		b1=new JButton("1");
+		b1.setBackground(Color.gray);
+		b1.setForeground(Color.white);
+		b1.setBorder(new LineBorder(Color.gray));
+		
+		b2=new JButton("2");
+		b2.setBackground(Color.gray);
+		b2.setForeground(Color.white);
+		b2.setBorder(new LineBorder(Color.gray));
+		
+		b3=new JButton("3");
+		b3.setBackground(Color.gray);
+		b3.setForeground(Color.white);
+		b3.setBorder(new LineBorder(Color.gray));
+		
+		b4=new JButton("4");
+		b4.setBackground(Color.gray);
+		b4.setForeground(Color.white);
+		b4.setBorder(new LineBorder(Color.gray));
+		
+		b5=new JButton("5");
+		b5.setBackground(Color.gray);
+		b5.setForeground(Color.white);
+		b5.setBorder(new LineBorder(Color.gray));
+		
+		b6=new JButton("6");
+		b6.setBackground(Color.gray);
+		b6.setForeground(Color.white);
+		b6.setBorder(new LineBorder(Color.gray));
+		
+		b7=new JButton("7");
+		b7.setBackground(Color.gray);
+		b7.setForeground(Color.white);
+		b7.setBorder(new LineBorder(Color.gray));
+		
+		b8=new JButton("8");
+		b8.setBackground(Color.gray);
+		b8.setForeground(Color.white);
+		b8.setBorder(new LineBorder(Color.gray));
+		
+		b9=new JButton("9");
+		b9.setBackground(Color.gray);
+		b9.setForeground(Color.white);
+		b9.setBorder(new LineBorder(Color.gray));
+		
+		bdec=new JButton(".");
+		bdec.setBackground(Color.gray);
+		bdec.setForeground(Color.white);
+		bdec.setBorder(new LineBorder(Color.gray));
+		
+		bdiv=new JButton(":");
+		bdiv.setBackground(Color.orange);
+		bdiv.setForeground(Color.white);
+		bdiv.setBorder(new LineBorder(Color.orange));
+		
+		bmul=new JButton("*");
+		bmul.setBackground(Color.orange);
+		bmul.setForeground(Color.white);
+		bmul.setBorder(new LineBorder(Color.orange));
+		
+		bsub=new JButton("-");
+		bsub.setBackground(Color.orange);
+		bsub.setForeground(Color.white);
+		bsub.setBorder(new LineBorder(Color.orange));
+		
+		badd=new JButton("+");
+		badd.setBackground(Color.orange);
+		badd.setForeground(Color.white);
+		badd.setBorder(new LineBorder(Color.orange));
+		
+		beq=new JButton("=");
+		beq.setBackground(Color.orange);
+		beq.setForeground(Color.white);
+		beq.setBorder(new LineBorder(Color.orange));
+		
+		bmin=new JButton("+/-");
+		bmin.setBackground(Color.LIGHT_GRAY);
+		bmin.setForeground(Color.white);
+		bmin.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		
+		bclr=new JButton("C");
+		bclr.setBackground(Color.LIGHT_GRAY);
+		bclr.setForeground(Color.white);
+		bclr.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		
+		bper=new JButton("%");
+		bper.setBackground(Color.LIGHT_GRAY);
+		bper.setForeground(Color.white);
+		bper.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		
+		frame.setLayout(null);
+		frame.setVisible(true);
+		frame.setSize(1000,480);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		
+		textfield.setBounds(30, 80, 296, 30);
+		bclr.setBounds(30, 115, 70, 30);
+		bmin.setBounds(105, 115, 70, 30 );
+		bper.setBounds(180, 115, 70, 30);
+		bdiv.setBounds(255, 115, 70, 30);
+		b7.setBounds(30, 150, 70, 30);
+		b8.setBounds(105, 150, 70, 30);
+		b9.setBounds(180, 150, 70, 30);
+		bmul.setBounds(255, 150, 70, 30);
+		b4.setBounds(30, 185, 70, 30);
+		b5.setBounds(105, 185, 70, 30);
+		b6.setBounds(180, 185, 70, 30);
+		bsub.setBounds(255, 185, 70, 30);
+		b1.setBounds(30, 220, 70, 30);
+		b2.setBounds(105, 220, 70, 30);
+		b3.setBounds(180, 220, 70, 30);
+		badd.setBounds(255, 220, 70, 30);
+		b0.setBounds(30, 255, 145, 30);
+		bdec.setBounds(180, 255, 70, 30);
+		beq.setBounds(255, 255, 70, 30);
+		
+		frame.add(textfield);
+		frame.add(bclr);
+		frame.add(bmin);
+		frame.add(bper);
+		frame.add(bdiv);
+		frame.add(b7);
+		frame.add(b8);
+		frame.add(b9);
+		frame.add(bmul);
+		frame.add(b4);
+		frame.add(b5);
+		frame.add(b6);
+		frame.add(bsub);
+		frame.add(b1);
+		frame.add(b2);
+		frame.add(b3);
+		frame.add(badd);
+		frame.add(b0);
+		frame.add(bdec);
+		frame.add(beq);
+		frame.add(CalculatorText);
+		frame.add(Function_chart);
+		
+		bclr.addActionListener(this);
+		bmin.addActionListener(this);
+		bper.addActionListener(this);
+		bdiv.addActionListener(this);
+		
+		b7.addActionListener(this);
+		b8.addActionListener(this);
+		b9.addActionListener(this);
+		bmul.addActionListener(this);
+		
+		b4.addActionListener(this);
+		b5.addActionListener(this);
+		b6.addActionListener(this);
+		bsub.addActionListener(this);
+		
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		b3.addActionListener(this);
+		badd.addActionListener(this);
+		
+		b0.addActionListener(this);
+		bdec.addActionListener(this);
+		beq.addActionListener(this);
+		
+		//////////////////
+		/// GRAPH APP ////
+		/////////////////
+		
+		
+	}
+	
+//	public void paint(Graphics g) {
+//		g.setColor(Color.BLACK);
+//		g.drawString("X", 685, 20);
+//		g.drawLine(685, 460, 685, 910);
+//		g.drawLine(460, 245, 460, 250);
+//		repaint();
+//	}
+
+	@Override
+	public void actionPerformed(ActionEvent a) {
+		
+		Object source = a.getSource();
+		if(source==bdec)
+			textfield.setText(textfield.getText().concat("."));
+		if(source==bmin) {
+			if(minplus==0) {
+				textfield.setText(""+"-");
+				minplus=1;
+			}
+			else {
+				textfield.setText("");	
+				minplus=0;
+			}
+		}
+		if(source == bclr) {
+			textfield.setText("");
+		}
+		if(source == badd) {
+			n1=Double.parseDouble(textfield.getText());
+			operator=1;
+			minplus=0;
+			textfield.setText("");
+		}
+		if(source==bsub)
+		{
+			n1=Double.parseDouble(textfield.getText());
+			operator=2;
+			minplus=0;
+			textfield.setText("");
+		}
+		
+		if(source==bmul)
+		{
+			n1=Double.parseDouble(textfield.getText());
+			operator=3;
+			minplus=0;
+			textfield.setText("");
+		}
+		
+		if(source==bdiv)
+		{
+			n1=Double.parseDouble(textfield.getText());
+			operator=4;
+			minplus=0;
+			textfield.setText("");
+		}
+		if(source==bper) {
+			if(minplus==1) {
+				minplus=0;
+				textfield.setText("ERROR");
+			}
+			else {
+			n1=Double.parseDouble(textfield.getText())/100;
+			textfield.setText(""+n1);
+			}
+		}
+		
+		if(source==beq) {
+			n2=Double.parseDouble(textfield.getText());
+			switch(operator) {
+			case 1:
+				result=n1+n2;
+				break;
+				
+			case 2: result=n1-n2;
+				break;
+
+			case 3: result=n1*n2;
+				break;
+
+			case 4: result=n1/n2;
+				break;
+			
+
+			default: result=0;
+			}
+			minplus=0;
+			if((result-(int)result)==0) {
+				resultNonDecimal = (int)result;
+				textfield.setText(""+resultNonDecimal);
+			}
+			else {
+				textfield.setText(""+result);
+			};
+		}
+		if(source==b1) 
+			textfield.setText(textfield.getText().concat("1"));
+		if(source==b2) 
+			textfield.setText(textfield.getText().concat("2")); 
+		if(source==b3) 
+			textfield.setText(textfield.getText().concat("3"));
+		if(source==b4) 
+			textfield.setText(textfield.getText().concat("4"));
+		if(source==b5) 
+			textfield.setText(textfield.getText().concat("5"));
+		if(source==b6) 
+			textfield.setText(textfield.getText().concat("6"));
+		if(source==b7) 
+			textfield.setText(textfield.getText().concat("7"));
+		if(source==b8) 
+			textfield.setText(textfield.getText().concat("8"));
+		if(source==b9) 
+			textfield.setText(textfield.getText().concat("9"));
+		if(source==b0) 
+			textfield.setText(textfield.getText().concat("0"));
+
+		
+	}
+	public static void main(String[] args)
+	{
+		
+		new Calculator();
+	}
+
+}
